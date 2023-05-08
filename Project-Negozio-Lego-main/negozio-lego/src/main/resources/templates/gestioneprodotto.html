@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="'Gestione Prodotti'"></title>
+  <!-- Link a Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- Stile per navbar e footer fissati -->
+  <style>
+    body {
+      height: 100%;
+      padding-bottom: 70px;
+    }
+    .navbar {
+      background-color: #000;
+      color: #fff;
+    }
+    
+    .navbar-brand {
+        font-size: 40px;
+        font-weight: bold;
+      }
+      .navbar-nav > li > a {
+        color: #fff;
+      }
+    
+
+
+
+      .footer {
+        background-color: #000;
+        color: #fff;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 60px;
+        line-height: 60px;
+      }
+
+   .btn-primary {
+    background-color: red;
+    }
+
+    #menu ul {
+    display: none; 
+    }
+
+ 	textarea {
+    	resize: none;
+    }
+
+    #menu li:hover > ul {
+    display: block;
+    color: white;
+    }
+    
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" th:href="@{homepage}" th:text="'LEGO'"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{homepage}" th:text="'Home'"></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{amministrazione}" th:text="'Ordini e utenti'"></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  <div class="container">
+    <h1></h1>
+    <!-- Form di registrazione prodotto -->
+    <div class="row">
+      <div class="col-md-6">
+        <h2 th:text="'Registra Prodotto'"></h2>
+					<form action="gestioneprodotto/salvaprodotto" method="POST" enctype="multipart/form-data">
+						<div class="row">
+							<div class="col-12">
+								<label for="nome" th:text="'Nome:'"></label>
+								<input type="text"  name="nome" class="form-control" 
+									required="required">
+							</div>
+						</div>					
+						<div class="row">
+							<div class="col-12">
+								<label for="descrizione" th:text="'Descrizione:'"></label>
+								<textarea rows="4" cols="50" name="descrizione" class="form-control" 
+									required="required"></textarea><!--  -->
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<label for="prezzo" th:text="'Prezzo:'"></label>
+							<input type="number" step="any" name="prezzo" class="form-control" required="required">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div class="col-12">
+								<label for="immagine" th:text="'Immagine prodotto:'"></label>
+								<input type="file"  name="immagine" class="form-control">
+							</div>
+						</div>
+							<div class="col-6">
+								<br> <!--  -->
+								<label for="categoria" th:text="'Categoria:'"></label>
+								<select id="categoria" name="categoria" class="form-select">
+									<option th:each="c : ${categorie}" th:value="${c.id}" th:text="${c.descrizione}"></option> <!-- condizione per generare il modifica sul nome del cliente -->
+								</select>
+							</div>									
+						<div class="row mt-4">
+							<div class="col-12 text-center">
+								<input type="submit" th:value="'Registra Prodotto'" class="btn btn-primary">
+							</div>
+						</div>
+					</form>
+      </div>
+      
+      <!-- Tabella di visualizzazione prodotti registrati -->
+      <div class="col-md-6">
+        <h2 th:text="'Prodotti Registrati'"></h2>
+        <table class="table">
+          <thead>
+            <tr>              
+              <th th:text="'Codice'"></th>
+              <th th:text="'Nome'"></th>
+              <th th:text="'Prezzo'"></th>
+              <th th:text="'Immagine'"></th>
+              <th th:text="'Categoria'"></th>
+            </tr>
+          </thead>
+          <tbody><!--  Ciclo per mostra i prodotti -->
+			<tr th:each="c : ${catalogo}" >
+				<td th:text="${c.id}"></td>
+				<td th:text="${c.nome}"></td>
+				<td th:text="${#numbers.formatDecimal(c.prezzo,0,'POINT',2,'COMMA')}"></td>
+				<td>
+					<img th:if="${c.immagine == null}" th:src="@{image/logo.png}" class="img-thumbnail" alt="articolo" 
+						style="width:50px;max-width:50px;height:60px;max-height:60px;"> <!--  se l'immagine non è presente compare nessuna immagine -->
+					<img th:if="${c.immagine != null}" th:src="@{${c.immagine}}" class="img-thumbnail" alt="articolo" 
+						style="width:50px;max-width:50px;height:60px;max-height:60px;"> <!--  se c'è l'immagine la va a recuperare -->
+				</td>
+				<td th:text="${c.categoria.descrizione}"></td> 
+				<td class="text-end">
+					<a th:href="@{gestioneprodotto/cancellaprodotto(id=${c.id})}" 
+					class="btn btn-danger btn-sm" th:text="'Cancella'"><button type="button" class="btn btn-danger btn-sm" data-id="1"></button></a>
+				</td>	
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+    <footer class="footer">
+      <div class="container">
+        <p th:text="'&copy; 2023 LEGO. Tutti i diritti riservati.'"></p>
+      </div>
+    </footer>
+  
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="'Amministrazione'"></title>
+  <!-- Link a Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- Stile per navbar e footer fissati -->
+  <style>
+    body {
+      height: 100%;
+      padding-bottom: 70px;
+    }
+    .navbar {
+      background-color: #000;
+      color: #fff;
+    }
+    
+    .navbar-brand {
+        font-size: 40px;
+        font-weight: bold;
+      }
+      .navbar-nav > li > a {
+        color: #fff;
+      }
+
+
+      .footer {
+        background-color: #000;
+        color: #fff;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 60px;
+        line-height: 60px;
+      }
+
+   .btn-primary {
+    background-color: red;
+    }
+
+    #menu ul {
+    display: none; 
+    }
+
+ 	textarea {
+    	resize: none;
+    }
+
+    #menu li:hover > ul {
+    display: block;
+    color: white;
+    
+  
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" th:href="@{homepage}" th:text="'LEGO'"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{homepage}" th:text="'Home'"></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" th:href="@{gestioneprodotto}" th:text="'Prodotti e categorie'"></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  <div class="container">
+    <h1 th:text="'Amministrazione'"></h1>
+    <div class="row">
+      <!-- Lista utenti -->
+      <div class="col-md-6">
+        <h2 th:text="'Utenti'"></h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th th:text="'ID'"></th>
+              <th th:text="'Nome'"></th>
+              <th th:text="'Email'"></th>
+              <th th:text="'Azioni'"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr  th:each="c : ${clienti}" >
+              <td th:text=${c.id}></td>
+              <td th:text="${c.nome + ' ' + c.cognome}"></td>
+              <td th:text=${c.email}></td>
+              <td>
+
+                <a th:href="@{amministrazione/cancellacliente(id=${c.id})}" 
+					class="btn btn-danger btn-sm" th:text="'Cancella'">
+                <button type="button" class="btn btn-sm btn-danger"></button></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Lista ordini -->
+      <div class="col-md-6">
+        <h2 th:text="'Ordini'"></h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th th:text="'ID'"></th>
+              <th th:text="'Utente'"></th>
+              <th th:text="'Data'"></th>
+              <th th:text="'Totale'"></th>
+              <th th:text="'Azioni'"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr  th:each="o : ${ordini}" >
+              <td th:text=${o.id}></td>
+              <td th:text="${o.cliente.nome + ' ' + o.cliente.cognome}"></td>
+              <td th:text=${o.data}></td>
+              <td th:text="${#numbers.formatDecimal(o.importo,0,'POINT',2,'COMMA')}"></td> 
+              <td>
+                <a th:href="@{amministrazione/cancellaordine(id=${o.id})}" 
+					class="btn btn-danger btn-sm" th:text="'Cancella'">
+                <button type="button" class="btn btn-sm btn-danger"></button></a>
+              </td>
+          </tbody>
+        </table>
+        </div>
+  </div>
+  </div>
+  <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p th:text="'&copy; 2023 LEGO. Tutti i diritti riservati.'"></p>
+      </div>
+    </footer>
+</body>
+</html>

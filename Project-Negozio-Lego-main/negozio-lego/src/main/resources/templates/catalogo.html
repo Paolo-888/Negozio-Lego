@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Acquista i nostri prodotti'"></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet"  href="css/catalogo.css">
+  <script>
+    function mostraDescrizione(button) {
+  var descrizione = button.parentNode.querySelector('.descrizione');
+  if (descrizione.style.display === 'none') {
+    descrizione.style.display = 'block';
+    button.textContent = 'Nascondi';
+  } else {
+    descrizione.style.display = 'none';
+    button.textContent = 'Dettagli';
+  }
+}
+  </script>
+</head>
+<body th:style="'background-image:url(' + @{/image/sfondo.jpg} + ');'">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light1 fixed-top">
+    <a th:href="@{homepage}">
+    <img class="logo" src="image/logo.png" ></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="catalogo-lego">
+          <div id="catalogo" class="catalogo-lego">
+              <strong class="titolo" th:text="'Catalogo'"></strong> 
+              <a th:href="@{catalogo(id=${1})}" th:text="'Harry Potter'"></a> 
+              <a th:href="@{catalogo(id=${2})}" th:text="'Star Wars'"></a> 
+              <a th:href="@{catalogo(id=${3})}" th:text="'Lego City'"></a> 
+              <a th:href="@{catalogo}" th:text="'Tutti i playset'"></a>
+          </div> 
+      </div>
+      <div class="carrellodiv">
+         <a class="carr" th:href="@{carrello}">
+            <img src="image/cart.png" class="carrello" >
+         </a>   
+      </div>
+      <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{logincliente}"style="color: solid black;"><strong th:text="'Login'"></strong></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{registrazionecliente}" style="color: solid black;"><strong th:text="'Registrazione'"></strong></a>
+            </li>
+      </ul>      
+    </div>
+</nav>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4" th:each="art : ${catalogo}">
+            <div class="card"  >
+              <img id="test" th:src="@{${art.immagine}}" class="card-img-top" >
+              <h2 th:text=${art.nome}></h2>
+              <p class="descrizione" th:text=${art.descrizione}></p>
+              <a class="btn btn-success acquista" th:href="@{catalogo/aggiungi(id=${art.id})}" th:text="'Aggiungi al carello |  € ' + ${#numbers.formatDecimal(art.prezzo,0,'POINT',2,'COMMA')}" ></a>
+              <button class="btn btn-primary dettagli" onclick="mostraDescrizione(this)" th:text="Dettagli"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+  <footer class="bg-lightf py-3" id="rosso">
+    <div class="col-md-4 posizione">
+      <p th:text="'&copy; 2023 Catalogo Lego'"></p>
+      <p><strong th:text="'ISCRIVITI ALLA NOSTRA NEWSLETTER'"></strong></p>
+      <input type="text" id="email" name="email" placeholder="Scrivi la tua email">
+      <button id="bottone" onclick="iscriviti()" th:text="'Iscriviti'"></button>
+      <div id="conferma"></div>
+      <script>
+      function iscriviti() {
+        var email = document.getElementById("email").value;
+        var conferma = document.getElementById("conferma");
+        if (email.includes("@") && email.includes(".")) {
+          conferma.innerHTML = "Grazie per esserti iscritto alla newsletter!";
+        } else {
+          conferma.innerHTML = "Inserisci un'email valida.";
+        }
+      }
+      </script>
+    </div>
+    <div class="col-md-4 text-center posizione">
+        <a th:href="@{loginareariservata}"  class="area" th:text="'Area Riservata'"></a>
+           <br><br>
+        <p th:text="'Informativa sulla privacy'"></p>
+      </div>
+    <div class="col-md-4 text-right posizione">
+      <p th:text="'Contatti: info@catalogolego.it'"></p>
+      <img src="image/insta.png" class="social">
+      <img src="image/face.png" class="social">
+      <img src="image/twitter.png" class="social">
+    </div>
+
+</footer>
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

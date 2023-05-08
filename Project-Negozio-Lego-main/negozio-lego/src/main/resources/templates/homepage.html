@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="'Home Page'"></title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/home_page.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light1 fixed-top">
+    <a th:href="@{homepage}">
+    <img class="logo" src="image/logo.png" th:href="@{homepage}"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="catalogo-lego">
+          <div id="catalogo" class="catalogo-lego">
+              <strong class="titolo" th:text="'Catalogo'"></strong> 
+              <a th:href="@{catalogo(id=${1})}" th:text="'Harry Potter'"></a> 
+              <a th:href="@{catalogo(id=${2})}" th:text="'Star Wars'"></a> 
+              <a th:href="@{catalogo(id=${3})}" th:text="'Lego City'"></a> 
+              <a th:href="@{catalogo}" th:text="'Tutti i playset'"></a>
+          </div> 
+      </div>
+      <div class="carrellodiv">
+         <a class="carr" th:href="@{carrello}">
+            <img src="image/cart.png" class="carrello" >
+         </a>   
+      </div>
+      <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{logincliente}" style="color: solid black;"><strong th:text="'Login'"></strong></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{registrazionecliente}" style="color: solid black;"><strong th:text="'Registrazione'"></strong></a>
+            </li>
+      </ul>      
+    </div>
+</nav>
+
+  <!-- Jumbotron -->
+  <div class="jumbotron jumbotron-fluid">
+    <div id="jumbotron-carousel" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#jumbotron-carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#jumbotron-carousel" data-slide-to="1"></li>
+        <li data-target="#jumbotron-carousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img class="d-block w-100" src="image/star.jpg" alt="First slide">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="image/city.jpg" alt="Second slide">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="image/hpotter.jpg" alt="Third slide">
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#jumbotron-carousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only" th:text="'Previous'"></span>
+      </a>
+      <a class="carousel-control-next" href="#jumbotron-carousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only" th:text="'Next'"></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <!-- Sidebar -->
+        <div class="card mb-3">
+          <div class="card-header" th:text="'Il mio Negozio'">
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a href="#" target="_blank" class="btn" th:text="'Chi Siamo'"></a></li>
+            <li class="list-group-item"><a href="#" target="_blank" class="btn" th:text="'Contatti'"></a></li>
+            <li class="list-group-item"><a href="#" target="_blank" class="btn" th:text="'Dove Trovarci'"></a></li>
+            <img src="image/mappa.png" class="mappa">
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <!-- Content -->
+        <h2 src="image/mappa.png" th:text="'Ultime Uscite'"></h2>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              <img src="https://brickmaster.it/wp-content/uploads/2022/12/fire-command-truck-60374.png" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title" th:text="'Lego City - Camion dei pompieri'"></h5>
+                <p class="card-text" th:text="'Il set Camion dei pompieri LEGO® City (60279) renderà unici i giochi di tutti i bambini, che potranno sterzare a destra e sinistra, spostare i tronchi LEGO in fiamme con la pala anteriore e spegnere il fuoco con gli elementi d’acqua. Grazie alla presenza dei pompieri di LEGO City, questo giocattolo costruibile infiammerà la fantasia dei bambini.'"></p>
+                <a th:href="@{catalogo(id=${3})}" target="_blank" class="btn btn-primary" th:text="'Vai al catalogo'"></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              <img src="https://www.lego.com/cdn/cs/set/assets/bltec62b553a047fa14/75355_alt1.png?format=webply&fit=bounds&quality=70&width=800&height=800&dpr=1.5" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title" th:text="'Lego Star Wars - X-Wing Starfighter'"></h5>
+                <p class="card-text" th:text="' Questo set LEGO Star Wars collezionabile per adulti è un regalo spettacolare per i fan di Star Wars o i costruttori LEGO esperti. Troverai le istruzioni illustrate nella scatola oppure puoi scaricare l’app LEGO Builder per usare strumenti quali lo zoom e la rotazione 3D che ti assisteranno in ogni fase di questa complessa costruzione.'">
+                 </p>
+                <a th:href="@{catalogo(id=${2})}" target="_blank" class="btn btn-primary" th:text="'Vai al catalogo'"></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              <img src="https://www.lego.com/cdn/cs/set/assets/blt01097b3599bd6090/75954_alt1.jpg?format=webply&fit=bounds&quality=70&width=800&height=800&dpr=1.5" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title" th:text="'Lego Harry Potter - Sala Grande di Hogwarts'"></h5>
+                <p class="card-text" th:text="'Costruisci e ricrea il regno di fantasia magica dei film di Harry Potter™ con questo dettagliato set della Sala Grande di Hogwarts, con caminetto, tavoli e stendardi reversibili, oltre alla torre con la Grande Scalinata dotata di scala a chiocciola, aula delle pozioni, sala del tesoro, Specchio delle Brame e tanti altri accessori magici.'"></p>
+                <a th:href="@{catalogo(id=${1})}" target="_blank" class="btn btn-primary" th:text="'Vai al catalogo'"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="banner">
+    <p th:utext="'Questo sito utilizza i cookie per migliorare l esperienza dell utente. Clicca su Accetta  per continuare.'"></p>
+    <button onclick="acceptCookies()" th:text="'Accetta'"></button>
+    <button onclick="refuseCookies()" th:text="'Rifiuta'"></button>
+  </div>
+  
+  <script>
+    function acceptCookies() {
+      document.getElementById("banner").style.display = "none";
+    }
+    function refuseCookies() {
+      document.getElementById("banner").style.display = "none";
+    }
+    window.onload = function() {
+      document.getElementById("banner").style.display = "block";
+    };
+  </script>
+
+  <!-- Footer -->
+  <footer class="bg-lightf py-3" id="rosso">
+    <div class="col-md-4 posizione">
+      <p th:text="'&copy; 2023 Catalogo Lego'"></p>
+      <p><strong th:text="'ISCRIVITI ALLA NOSTRA NEWSLETTER'"></strong></p>
+      <input type="text" id="email" name="email" placeholder="Scrivi la tua email">
+      <button id="bottone" onclick="iscriviti()" th:text="'Iscriviti'"></button>
+      <div id="conferma"></div>
+      <script>
+      function iscriviti() {
+        var email = document.getElementById("email").value;
+        var conferma = document.getElementById("conferma");
+        if (email.includes("@") && email.includes(".")) {
+          conferma.innerHTML = "Grazie per esserti iscritto alla newsletter!";
+        } else {
+          conferma.innerHTML = "Inserisci un'email valida.";
+        }
+      }
+      </script>
+    </div>
+    <div class="col-md-4 text-center posizione">
+        <a th:href="@{loginareariservata}"  class="area" th:text="'Area Riservata'"></a>
+      	 <br><br>
+        <p th:text="'Informativa sulla privacy'"></p>
+      </div>
+    <div class="col-md-4 text-right posizione" >
+      <p th:text="'Contatti: info@catalogolego.it'"></p>
+      <img src="image/insta.png" class="social">
+      <img src="image/face.png" class="social">
+      <img src="image/twitter.png" class="social">
+    </div>
+</footer>
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

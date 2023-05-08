@@ -1,0 +1,169 @@
+body {
+    padding-top: 170px;
+    background-color: cornflowerblue;
+    background-image: url("sfondo.jpg");
+  }
+
+.logo {
+    height: 50px;
+  }
+  
+  .navbar-nav {
+    margin-left: auto;
+  }
+  
+  .btn-primary{
+    background-color: red;
+    border-color: red;
+  }
+  
+  .bg-light1{
+    background-color: red;
+  }
+  
+  .carrello{
+    height: 100px;
+    width: auto;
+    margin-left: 350%;
+    
+  }
+  
+  .nav-item {
+    border-top: 8px dashed black;
+    border-bottom: 4px solid black;
+    border-right: 4px solid black;
+    border-left: 4px solid black;
+    background-color: yellow;
+  }
+
+  #rosso  {   
+    background-color: yellow;   
+    height: 100px;   
+    margin-top: 10%; 
+    width: 100%;
+    margin-right: 0px;
+ }
+ 
+ .posizione{
+    float: left;
+ }
+
+ .catalogo-lego {
+    position: relative;
+    display: inline-block;
+    color: white;
+    margin-left: 60px;
+  }
+  
+  .playset-lista {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+  }
+  
+  .catalogo-lego:hover .playset-lista {
+    display: block;
+  }
+  
+  .playset-lista ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 150%;
+    background-color: yellow;
+    border: 1px solid yellow;
+  }
+  
+  .playset-lista li {
+    padding: 5px;
+  }
+  
+  .playset-lista li a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .playset-lista li a:hover {
+    background-color: #f2f2f2;
+  }
+
+  .nav{
+    margin-left: 800%;
+  }
+  
+  .carrello{
+    height: 100px;
+    width: auto;
+  }
+  .container {
+    margin-top: 50px;
+  }
+/*  -----------------------------------------------------------   */
+.card {
+    width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 30px;
+    text-align: center;
+  }
+  
+  .card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .card h2 {
+    font-size: 24px;
+    margin: 10px 0;
+  }
+  
+  .card p.descrizione {
+    display: none;
+    font-size: 16px;
+    margin: 10px 0;
+  }
+  
+  .card button.acquista {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  
+  .card button.dettagli {
+    background-color: #bb00ff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 5px;
+  }
+
+
+
+
+
+
+@media screen and (max-width: 800px) {
+    navbar {
+        height: 50px;
+    }
+}

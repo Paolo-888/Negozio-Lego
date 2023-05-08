@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="'Login LEGO'"></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<style>
+	
+
+		body {
+			
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: cover;
+			height: 100%;
+			padding-top: 150px;
+			color: black;
+		}
+		.form-control:focus {
+			box-shadow: none;
+		}
+		.form-control, .btn {
+			border-radius: 50px;
+		}
+		.login-form {
+			width: 400px;
+			margin: 30px auto;
+			background-color: rgba(255, 255, 255, 0.8);
+			padding: 30px;
+			box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+		}
+		.login-form h2 {
+			text-align: center;
+			font-size: 30px;
+			margin-bottom: 30px;
+			color: red;
+		}
+		.login-form .form-group {
+			margin-bottom: 20px;
+		}
+		.login-form label {
+			font-weight: bold;
+			margin-bottom: 10px;
+			color: #333;
+		}
+		.login-form input[type="text"], .login-form input[type="password"] {
+			padding: 15px 20px;
+			border: 1px solid #ccc;
+			font-size: 16px;
+			color: #333;
+			background-color: #fff;
+		}
+		.login-form .btn {
+			font-size: 20px;
+			background-color: red;
+			border: none;
+			padding: 12px 20px;
+			margin-top: 20px;
+			width: 100%;
+			cursor: pointer;
+		}
+		.login-form .btn:hover, .login-form .btn:focus {
+			background-color: lightcoral;
+			outline: none;
+		}
+		.login-form a {
+			color: #666;
+			font-size: 16px;
+			text-decoration: none;
+		}
+		.login-form a:hover {
+			text-decoration: underline;
+		}
+
+		.logo {
+    height: 100px;
+    width: auto;
+  }
+  
+.navbar-nav {
+    margin-left: 20%;
+    width: 30%;
+}
+  
+.btn-primary{
+    background-color: red;
+    border-color: red;
+}
+  
+.bg-light1{
+    background-color: red;
+}
+  
+.carrello{
+    height: auto;
+    width: 100px;
+    margin-left: 300%;
+}
+
+  .titolo {
+      font-size: 20px;
+      color: white;
+      margin: 2%;
+  }
+
+  .catalogo-lego a {
+      width: 60%;
+      color: white;
+      font-size: 15px;
+      text-decoration: none;
+      padding: 1%;
+  }
+
+.catalogo-lego {
+    width: 60%;
+}
+
+#carrello {
+    width: 10%;
+    margin-left: 1%;
+}
+  
+.nav-item {
+    border-top: 6px dashed black;
+    border-bottom: 5px solid black;
+    border-right: 5px solid black;
+    border-left: 5px solid black;
+    background-color: yellow;
+    
+}
+ 
+.navbar-collapse {
+    width: 50%;
+}
+
+#rosso  {   
+    background-color: yellow;   
+    height: 150px;   
+    margin-top: 10%; 
+    width: 100%;
+    margin-right: 0px;
+ }
+ 
+ .posizione{
+    float: left;
+ }
+
+ .social{
+  width: 50px;
+  height: 50px;
+  border-top: 6px dashed black;
+  border-bottom: 3px solid black;
+  border-right: 3px solid black;
+  border-left: 3px solid black;
+  background-color: red;
+  margin-top: 7px;
+  margin-right: 12px;
+ }
+ 
+.area{
+  margin-top: -4px;
+  text-decoration: none;
+  color: black;
+ }
+
+ @media screen and (max-width: 900px){ 
+  .nav-item {
+    width: 30%;
+    margin-left: auto;
+    border-top: 8px dashed black;
+    border-bottom: 4px solid black;
+    border-right: 4px solid black;
+    border-left: 4px solid black;
+    background-color: yellow;
+  }
+ }
+
+	</style>
+</head>
+<body th:style="'background-image:url(' + @{/image/sfondologin.png} + ');'">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light1 fixed-top">
+        <a th:href="@{homepage}">
+        <img class="logo" src="image/logo.png" ></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <div id="catalogo" class="catalogo-lego">
+              <strong class="titolo" th:text="'Catalogo'"></strong> 
+              <a th:href="@{catalogo(id=${1})}" th:text="'Harry Potter'"></a> 
+              <a th:href="@{catalogo(id=${2})}" th:text="'Star Wars'"></a> 
+              <a th:href="@{catalogo(id=${3})}" th:text="'Lego City'"></a> 
+              <a th:href="@{catalogo}" th:text="'Tutti i playset'"></a>
+          </div>              
+        </div>
+    </nav>
+	<div class="container">
+		<div class="login-form">
+			<form action="logincliente" method="post">
+				<h2 th:text="'Accedi'"></h2>
+				<div class="form-group">
+					<label th:text="'Username'"></label>
+					<input type="text" class="form-control" name="username" required="required">
+				</div>
+				<div class="form-group">
+					<label th:text="'Password'"></label>
+					<input type="password" class="form-control" name="password" required="required">
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-lg" th:text="'Accedi'"></button>
+				</div>
+				<span th:text="'Non hai ancora un account? '"></span><span><a th:href="@{registrazionecliente}" th:text="'Registrati qui'"></a></span>
+			</form>
+		</div>
+	</div>
+	<br>
+	<!-- Footer -->
+	<footer class="bg-lightf py-3" id="rosso">
+		<div class="col-md-4 posizione">
+		  <p th:text="'&copy; 2023 Catalogo Lego'"></p>
+		  <p><strong th:text="'ISCRIVITI ALLA NOSTRA NEWSLETTER'"></strong></p>
+		  <input type="text" id="email" name="email" placeholder="Scrivi la tua email">
+		  <button id="bottone" onclick="iscriviti()" th:text="'Iscriviti'"></button>
+		  <div id="conferma"></div>
+		  <script>
+		  function iscriviti() {
+			var email = document.getElementById("email").value;
+			var conferma = document.getElementById("conferma");
+			if (email.includes("@") && email.includes(".")) {
+			  conferma.innerHTML = "Grazie per esserti iscritto alla newsletter!";
+			} else {
+			  conferma.innerHTML = "Inserisci un'email valida.";
+			}
+		  }
+		  </script>
+		</div>
+		<div class="col-md-4 text-center posizione">
+			<a th:href="@{loginareariservata}"  class="area" th:text="'Area Riservata'"></a>
+			<br><br>
+        	<p th:text="'Informativa sulla privacy'"></p>
+		  </div>
+		<div class="col-md-4 text-right posizione">
+		  <p th:text="'Contatti: info@catalogolego.it'"></p>
+		  <img src="image/insta.png" class="social">
+		  <img src="image/face.png" class="social">
+		  <img src="image/twitter.png" class="social">
+		</div>
+	</footer>
+</body>
+</html>

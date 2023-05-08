@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="'Carrello - Sito Lego'"></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/carrello.css">
+</head>
+<body th:if="${totale <= 0}" th:style="'background-image:url(' + @{/image/starwars.jpg} + ');'">
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light1 fixed-top">
+		<a th:href="@{homepage}">
+		<img class="logo" src="image/logo.png" ></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">  
+          <div class="catalogo-lego">
+              <strong class="titolo" th:text="'Catalogo'"></strong> 
+              <a th:href="@{catalogo(id=${1})}" th:text="'Harry Potter'"></a> 
+              <a th:href="@{catalogo(id=${2})}" th:text="'Star Wars'"></a> 
+              <a th:href="@{catalogo(id=${3})}" th:text="'Lego City'"></a> 
+              <a th:href="@{catalogo}" th:text="'Tutti i playset'"></a>
+          </div>
+		  <div>
+		  </div>
+		  <ul class="navbar-nav">
+			<li class="nav-item">
+			  <a class="nav-link" th:href="@{logincliente}" style="color: solid black;"><strong th:text="'Login'"></strong></a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" th:href="@{registrazionecliente}" style="color: solid black;"><strong th:text="'Registrazione'"></strong></a>
+			</li>
+		  </ul>      
+		</div>
+	</nav>
+	<div class="container">
+		<h1 th:text="'Il mio carrello'" th:if="${totale > 0}"></h1>
+		<div class="row" th:each="art: ${carrello}" th:if="${totale > 0}">
+			<div class="card">
+				<div class="row no-gutters">
+					<div class="col-md-4">
+						<img th:src="@{${art.immagine}}" class="card-img-top" alt="..."> <!-- immagine prodotto -->
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${art.nome}"></h5>
+							<p class="card-text" th:text="${art.descrizione}"></p>
+							<div class="d-flex justify-content-between align-items-center">
+								<div class="btn-group">
+									<button type="button" class="btn btn-danger" onclick="removeItem(this)">-</button>
+									<input type="number" class="form-control" value="1">
+									<button type="button" class="btn btn-success" onclick="addItem(this)">+</button>
+								</div>
+								<h5 class="subtotal" th:text="'€ ' + ${#numbers.formatDecimal(art.prezzo,0,'POINT',2,'COMMA')}"></h5>
+                                
+                                    <a type="button" class="btn btn-danger btn-sm" th:text="'Elimina'" th:href="@{carrello/elimina(id=${art.id})}"></a>
+                                
+							</div>
+						</div>
+					</div>
+				</div>  
+			</div>
+
+		</div>
+					<div class="order-summary" th:if="${totale > 0}">
+				<h2 th:text="'Riepilogo ordine'"></h2> <!-- creare il ciclo per gli articolo aggiunti -->
+				<div class="order-summary-item" th:each="art: ${carrello}">
+					<span th:text="${art.nome}"> </span>
+					<span th:text="'€ ' + ${#numbers.formatDecimal(art.prezzo,0,'POINT',2,'COMMA')}"></span>    
+				</div>
+				<div class="order-summary-item">
+					<span th:text="'Spese di spedizione'"></span>
+					<span th:text="'gratuita'"></span>
+				</div>
+				<div class="order-summary-total">
+					<span th:text="'Totale'"></span>
+					<span th:text="'€ ' + ${#numbers.formatDecimal(totale,0,'POINT',2,'COMMA')}"></span>
+				</div>
+				<a type="button" class="btn btn-primary btn-block mt-3" style="background-color:red" th:text="'Procedi al pagamento'" th:href="@{/pagamento}"></a>
+			</div>
+	</div>
+	<script>
+		function removeItem(btn) {
+			var input = btn.parentNode.querySelector('input[type="number"]');
+			if (input.value > 0) {
+				input.stepDown();
+			}
+	//		updateOrderSummary();
+		}
+
+		function addItem(btn) {
+			var input = btn.parentNode.querySelector('input[type="number"]');
+			input.stepUp();
+	//		updateOrderSummary();
+		}
+
+		function updateOrderSummary() {
+			var subtotal = 0;
+			var items = [];
+			var cards = document.querySelectorAll('.card');
+			for (var i = 0; i < cards.length; i++) {
+				var input = cards[i].querySelector('input[type="number"]');
+				var price = parseFloat(cards[i].querySelector('.subtotal').textContent.replace('€', ''));
+				subtotal += input.value * price;
+				if (input.value > 0) {
+					items.push({
+						name: cards[i].querySelector('.card-title').textContent.trim(),
+						price: price,
+						quantity: input.value
+					});
+				}
+			}
+			var orderSummary = document.querySelector('.order-summary');
+			orderSummary.querySelector('.order-summary-item').innerHTML = '';
+			for (var i = 0; i < items.length; i++) {
+				var item = document.createElement('div');
+				item.classList.add('order-summary-item');
+				item.innerHTML = '<span>' + items[i].name + ' x ' + items[i].quantity + '</span><span>€' + (items[i].price * items[i].quantity).toFixed(2) + '</span>';
+				orderSummary.querySelector('.order-summary-item').appendChild(item);
+			}
+			orderSummary.querySelector('.order-summary-total span:last-child').textContent = '€' + subtotal.toFixed(2);
+		}
+	</script>
+    
+	<footer class="bg-lightf py-3 " id="rosso">
+		<div class="col-md-4 posizione">
+		  <p th:text="'&copy; 2023 Catalogo Lego'"></p>
+		  <p><strong th:text="'ISCRIVITI ALLA NOSTRA NEWSLETTER'"></strong></p>
+		  <input type="text" id="email" name="email" placeholder="Scrivi la tua email">
+		  <button id="bottone" onclick="iscriviti()" th:text="'Iscriviti'"></button>
+		  <div id="conferma"></div>
+		  <script>
+		  function iscriviti() {
+			var email = document.getElementById("email").value;
+			var conferma = document.getElementById("conferma");
+			if (email.includes("@") && email.includes(".")) {
+			  conferma.innerHTML = "Grazie per esserti iscritto alla newsletter!";
+			} else {
+			  conferma.innerHTML = "Inserisci un'email valida.";
+			}
+		  }
+		  </script>
+		</div>
+		<div class="col-md-4 text-center posizione">
+			<a th:href="@{loginareariservata}" class="area" th:text="'Area Riservata'"></a>
+      	 <br><br>
+        <p th:text="'Informativa sulla privacy'"></p>
+		  </div>
+		<div class="col-md-4 text-right posizione">
+		  <p th:text="'Contatti: info@catalogolego.it'"></p>
+		  <img src="image/insta.png" class="social">
+		  <img src="image/face.png" class="social">
+		  <img src="image/twitter.png" class="social">
+		</div>
+	</footer>
+</body>
+</html>
